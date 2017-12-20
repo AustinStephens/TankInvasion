@@ -54,7 +54,7 @@
 		/**
 		 * Calculates delta time and stores it in our static delta time variable
 		 */
-		public function getDeltaTime(): void
+		private function getDeltaTime(): void
 		{
 			var currentTime: int = getTimer();
 			deltaTime = (currentTime - prevTime) / 1000.0 * timeScale;

@@ -11,9 +11,9 @@
 		
 		private var isMouseDown: Boolean = false;
 		/** Camera, follows player. */
-		public var cam: Camera;
+		private var cam: Camera;
 		/** Player variable. */
-		public var player: Player = new Player();
+		private var player: Player = new Player();
 		
 		/** Cooldown for the mini Gun. */
 		private var delaySpawnBullet: Number = 0;
@@ -29,6 +29,7 @@
 		/** References to UI. */
 		private var scoreText: ScoreText = new ScoreText();
 		private var healthText: ScoreText = new ScoreText();
+		public var roomText: ScoreText = new ScoreText();
 		private var healthBar: HealthBar = new HealthBar();
 		
 		/** Called right after the scene is first changed to. */
@@ -40,6 +41,10 @@
 			healthBar.y = 50;
 			healthText.x = 800
 			healthText.y = 50;
+			roomText.x = 550;
+			roomText.y = 500;
+			roomText.textField.text = "New Room Open";
+			roomText.visible = false;
 			healthText.textField.text = "Health:";
 			healthBar.scaleX = healthBar.scaleY = 2;
 			
@@ -50,6 +55,7 @@
 			addChildAt(scoreText,1);
 			addChildAt(healthText,1);
 			addChildAt(healthBar,1);
+			addChildAt(roomText,1);
 			
 			
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, onClick);

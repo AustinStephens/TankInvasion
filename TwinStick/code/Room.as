@@ -9,10 +9,10 @@
 		public static var totalPortals: int = 6;
 
 		/** Walls. */
-		public var walls: Array = new Array(new WallVertical(-750, 450), new WallVertical(-750, -450), new WallHorizontal(-400, -750), new WallHorizontal(400, -750),
+		private var walls: Array = new Array(new WallVertical(-750, 450), new WallVertical(-750, -450), new WallHorizontal(-400, -750), new WallHorizontal(400, -750),
 											new WallVertical(750, -450), new WallVertical(750, 450), new WallHorizontal(400, 750),  new WallHorizontal(-400, 750));
 		/** Doors. */
-		public var doors: Array = new Array(new DoorVertical(-750, 0), new DoorHorizontal(0, -750), new DoorVertical(750, 0), new DoorHorizontal(0, 750));
+		private var doors: Array = new Array(new DoorVertical(-750, 0), new DoorHorizontal(0, -750), new DoorVertical(750, 0), new DoorHorizontal(0, 750));
 		
 		/** Adds all the doors and walls as Children. */
 		public function Room() {

@@ -3,26 +3,27 @@
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
 	import fl.motion.easing.Back;
+	import code.GameScenes.GameScenePlay;
 	
 	public class Camera extends MovieClip{
 
 		/** Player variable, what the camera follows. */
-		public var target: Player;
+		private var target: Player;
 		
 		/** How far the player can go in any direction before the camera beings to move. */
-		public const LIMIT: Number = 200;
+		private const LIMIT: Number = 200;
 		/** Slows down the camera as it follows the player to make a slide effect. */
-		public const MULT: Number = .20;
+		private const MULT: Number = .20;
 		/** Size of the rooom. */
-		public const ROOM_SIZE: Number = 1600;
+		private const ROOM_SIZE: Number = 1600;
 		
 		/** Vector (to be specific on the type, not sure if it is really more efficient) holding all GameObjects in the scene. */
 		public var gameScene: Vector.<GameObject> = new Vector.<GameObject>();
 		/** Seperate vector to hold particles, so they dont have to check if they collide with anything. */
-		public var particles: Vector.<Particle> = new Vector.<Particle>();
+		private var particles: Vector.<Particle> = new Vector.<Particle>();
 		
 		/** Rooms in the scene. */
-		public var rooms: Array = new Array();
+		private var rooms: Array = new Array();
 		/** Doors are label 0-3, 0 being the left door and going clockwise. This array holds the adjecent door index of a door at the index. 0 = left, adjecent would be 2. */
 		private var oppositeDoor: Array = new Array(2,3,0,1);
 		/** Makes sure we don't spawn more than one room at a time. */
@@ -33,14 +34,14 @@
 		private var isSecondRoom: Boolean = false;
 		
 		/** Counter to determine when we spawn a new room. */
-		public var totalPortals: int = Room.totalPortals;
+		private var totalPortals: int = Room.totalPortals;
 		
 		/** Time between each portal being spawned. */
-		public var portalTimer: Number = 5;
+		private var portalTimer: Number = 5;
 		/** Time between each portal being spawned. */
-		public var portalTimerMax: Number = 10;
+		private var portalTimerMax: Number = 10;
 		/** Time between each healthpack being spawned. */
-		public var hpTimer: Number = 20;
+		private var hpTimer: Number = 20;
 		/** The player's score. */
 		public var score = 0;
 		
@@ -184,7 +185,7 @@
 		}
 		
 		/** Spawns a portal at a random location. */
-		public function spawnPortal(): void
+		private function spawnPortal(): void
 		{
 			var randx: Number = rooms[0].x + Math.random() * 1300 - 650;
 			var randy: Number = rooms[0].y + Math.random() * 1300 - 650;
@@ -197,7 +198,7 @@
 		}
 		
 		/** Spawns a healthpack at a random location. */
-		public function spawnHealthPack(): void
+		private function spawnHealthPack(): void
 		{
 			var randx: Number = rooms[0].x + Math.random() * 1300 - 650;
 			var randy: Number = rooms[0].y + Math.random() * 1300 - 650;
@@ -219,8 +220,9 @@
 		}
 		
 		/** Spawns room in a random direction. Increases game difficulty. */
-		public function spawnNewRoom(): void // direction is 1-west, 2-north, 3-east, 4-south, 0 is for starting room;
+		private function spawnNewRoom(): void // direction is 1-west, 2-north, 3-east, 4-south, 0 is for starting room;
 		{
+			GameScenePlay(parent).roomText.visible = true;
 			var direction: int = int(Math.random() * 4);
 			rooms[0].removeChild(rooms[0].doors[direction]);
 			rooms[0].doors.removeAt(direction);
@@ -272,6 +274,7 @@
 		/** When the player enters a new room. Respawns the door, spawns portals, and clears the gameScene. */
 		private function onNewRoomEnter(): void
 		{
+			GameScenePlay(parent).roomText.visible = false;
 			isSecondRoom = false;
 			var door: GameObject;
 			
